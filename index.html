@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>哈哈哈</title>
-    <script>
-        // 每1秒更新二维码图片
-        function updateQRCode() {
-            var qrImage = document.getElementById("qrcode");
-            qrImage.src = "http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png?t=" + new Date().getTime();
+<canvas id="qrcodeCanvas"></canvas>
+<script>
+    async function loadQRCode() {
+        try {
+            let response = await fetch("http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png?t=" + new Date().getTime(), { mode: "no-cors" });
+            let blob = await response.blob();
+            let imgURL = URL.createObjectURL(blob);
+
+            let img = new Image();
+            img.onload = function () {
+                let canvas = document.getElementById("qrcodeCanvas");
+                let ctx = canvas.getContext("2d");
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = imgURL;
+        } catch (error) {
+            console.error("二维码加载失败", error);
         }
-        
-        // 每秒钟更新一次二维码
-        setInterval(updateQRCode, 1000);
-    </script>
-</head>
-<body>
-    <h1>呵呵呵呵</h1>
-    <!-- 自动更新二维码 -->
-    <img id="qrcode" src="http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png" alt="二维码">
-</body>
-</html>
+    }
+
+    setInterval(loadQRCode, 1000);
+    loadQRCode();
+</script>
