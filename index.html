@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>哈哈哈</title>
     <script>
-        // 每1秒自动刷新
-        setInterval(function() {
-            location.reload();
-        }, 1000);
+        // 每1秒更新二维码图片
+        function updateQRCode() {
+            var qrImage = document.getElementById("qrcode");
+            qrImage.src = "http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png?t=" + new Date().getTime();
+        }
+        
+        // 每秒钟更新一次二维码
+        setInterval(updateQRCode, 1000);
     </script>
 </head>
 <body>
     <h1>呵呵呵呵</h1>
-    <!-- http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png -->
-    <img src="http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png" alt="二维码">
+    <!-- 自动更新二维码 -->
+    <img id="qrcode" src="http://www.jsscme.com/hyt/Admin/ewm/qrcode52971.png" alt="二维码">
 </body>
 </html>
